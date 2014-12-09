@@ -1,0 +1,9 @@
+loan:
+  interest: 20.00
+  risk:
+    maxAmount: EUR 400.00
+    maxApplicationsPerDay: 3
+    nightEndHour: 6
+  extension:
+    factor: 1.50
+    weeksToIncrease: 1
