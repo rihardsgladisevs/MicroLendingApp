@@ -43,20 +43,20 @@ GET `/loans`
 
 ## Example of json from get history of loans
 
-    [
-        {
-            "id": 1,
-            "interest": 30,
-            "riskStatus": "OK",
-            "extensions": [
-                {
-                    "id": 1,
-                    "extensionDatePrepared": 1418114073250
-                }
-            ],
-            "currency": "EUR",
-            "endDatePrepared": 1420446866325,
-            "applicationDatePrepared": 1418114066325,
-            "amountPrepared": 120
-        }
-    ]
+        [
+            {
+                "id": 1,
+                "interest": 30,
+                "riskStatus": "OK",
+                "extensions": [
+                    {
+                        "id": 1,
+                        "extensionDatePrepared": "09.12.2014 01:58:51"
+                    }
+                ],
+                "currency": "EUR",
+                "amountPrepared": 120,
+                "applicationDatePrepared": "09.12.2014 01:58:45",
+                "endDatePrepared": "05.01.2015 01:58:45"
+            }
+        ]
