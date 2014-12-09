@@ -43,7 +43,6 @@ public class LoanServiceImpl implements LoanService {
         loan.setEndDate(applicationDate.plusDays(term));
         loan.setInterest(loanSettings.getInterest());
         LoanRisk loanRisk = loanRiskService.calculateLoanRisk(loan);
-        System.out.println(loanRisk.getRiskStatus());
         loan.setRiskStatus(loanRisk.getRiskStatus());
         loan = loanRepository.save(loan);
         if (loanRisk.getRiskStatus() != RiskStatus.OK) {

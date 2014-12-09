@@ -3,7 +3,9 @@ package lv.rgl.mla.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lv.rgl.mla.infrastructure.enums.RiskStatus;
+import lv.rgl.mla.infrastructure.serializers.JsonDateSerializer;
 import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Type;
 import org.joda.money.Money;
@@ -77,6 +79,7 @@ public class Loan implements Serializable{
         return applicationDate;
     }
 
+    @JsonSerialize(using = JsonDateSerializer.class)
     public Date getApplicationDatePrepared() {
         return (applicationDate != null) ? applicationDate.toDate(): null;
     }
@@ -89,6 +92,7 @@ public class Loan implements Serializable{
         return endDate;
     }
 
+    @JsonSerialize(using = JsonDateSerializer.class)
     public Date getEndDatePrepared() {
         return (endDate != null) ? endDate.toDate() : null;
     }
