@@ -5,11 +5,11 @@ import lv.rgl.mla.domain.LoanRisk;
 import lv.rgl.mla.infrastructure.enums.RiskStatus;
 import lv.rgl.mla.infrastructure.producers.DateTimeProducer;
 import lv.rgl.mla.infrastructure.settings.LoanRiskSettings;
-import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,7 +49,7 @@ public class LoanRiskServiceImpl implements LoanRiskService {
     }
 
     private boolean applicationAtNight (Loan loan) {
-        LocalDateTime localApplicationDate = loan.getApplicationDate().toLocalDateTime();
-        return localApplicationDate.getHourOfDay() < loanRiskSettings.getNightEndHour();
+        LocalDateTime localApplicationDate = loan.getApplicationDate();
+        return localApplicationDate.getHour() < loanRiskSettings.getNightEndHour();
     }
 }

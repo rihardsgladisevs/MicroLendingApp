@@ -7,7 +7,6 @@ import lv.rgl.mla.service.client.ClientService;
 import lv.rgl.mla.service.loan.LoanService;
 import lv.rgl.mla.service.loan.extension.LoanExtensionService;
 import org.joda.money.Money;
-import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -59,7 +59,7 @@ public class LoanRestServiceTest {
     public void testApplyForLoan() throws Exception {
         Integer term = 30;
         BigDecimal amount = new BigDecimal("300.00");
-        when(dateTimeProducer.getCurrentDateTime()).thenReturn(DateTime.now().withHourOfDay(8));
+        when(dateTimeProducer.getCurrentDateTime()).thenReturn(LocalDateTime.now().withHour(8));
         ResponseEntity<String> result = loanRestService.applyForLoan(amount, term, request);
         verify(clientService, times(1)).getClientForLoan(USER_IP);
         verify(loanService, times(1)).applyForLoan(any(Client.class), any(Money.class), eq(term));

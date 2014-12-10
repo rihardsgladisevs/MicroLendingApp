@@ -8,7 +8,6 @@ import lv.rgl.mla.infrastructure.producers.DateTimeProducer;
 import lv.rgl.mla.infrastructure.settings.LoanRiskSettings;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
-import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,8 +33,8 @@ public class LoanRiskServiceImplTest {
     private static final Integer MAX_APP_PER_DAY = 3;
     private static final Integer NIGHT_END_HOUR = 6;
 
-    private static final DateTime DATE_DAY = DateTime.now().withTime(8, 1, 1, 1);
-    private static final DateTime DATE_NIGHT = DateTime.now().withTime(1, 1, 1, 1);
+    private static final LocalDateTime DATE_DAY = LocalDateTime.now().withHour(8);
+    private static final LocalDateTime DATE_NIGHT = LocalDateTime.now().withHour(1);
 
     @Mock
     private LoanRiskSettings loanRiskSettings;

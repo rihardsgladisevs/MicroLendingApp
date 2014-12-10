@@ -1,7 +1,8 @@
 package lv.rgl.mla.infrastructure.producers;
 
-import org.joda.time.DateTime;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
 
 /**
  * Created by rihards.gladisevs on 07.12.2014..
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DateTimeProducerImpl implements DateTimeProducer {
     @Override
-    public DateTime getCurrentDateTime() {
-        return DateTime.now();
+    public LocalDateTime getCurrentDateTime() {
+        return LocalDateTime.now();
     }
 }

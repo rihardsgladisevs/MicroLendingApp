@@ -6,13 +6,12 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
-import org.joda.time.DateTime;
 import org.junit.Assert;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import static com.jayway.restassured.RestAssured.*;
 import static com.jayway.restassured.path.json.JsonPath.from;
@@ -22,20 +21,18 @@ import static com.jayway.restassured.path.json.JsonPath.from;
  */
 public class SuccessfulLoanExtend {
 
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
+    private static final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
 
     private String loanId;
     private BigDecimal interest;
-    private DateTime endDate;
+    private LocalDateTime endDate;
 
     @Given("^client has successful loan$")
     public void client_has_successful_loan() throws ParseException {
         String loan = get("/loans").asString();
         this.loanId = from(loan).getString("[0].id");
         this.interest = new BigDecimal(from(loan).getString("[0].interest"));
-        System.out.println(from(loan).getString("[0].endDatePrepared"));
-        Date date = dateFormat.parse(from(loan).getString("[0].endDatePrepared"));
-        this.endDate = new DateTime(date);
+        this.endDate = LocalDateTime.parse(from(loan).getString("[0].endDate"), dateFormat);
 
         Assert.assertThat(loanId, Matchers.not(CoreMatchers.nullValue()));
         Assert.assertThat(interest, Matchers.not(CoreMatchers.nullValue()));
@@ -72,11 +69,11 @@ public class SuccessfulLoanExtend {
 
     @And("^loan's end date is increased by (.+) week$")
     public void loan_factor_increased(Integer weeks) {
-        final DateTime expectedEndDate = this.endDate.plusWeeks(weeks);
+        final LocalDateTime expectedEndDate = this.endDate.plusWeeks(weeks);
 
         when()
             .get("/loans")
         .then()
-            .body("[0].endDatePrepared", CoreMatchers.equalTo(dateFormat.format(expectedEndDate.toDate())));
+            .body("[0].endDate", CoreMatchers.equalTo(expectedEndDate.format(dateFormat)));
     }
 }

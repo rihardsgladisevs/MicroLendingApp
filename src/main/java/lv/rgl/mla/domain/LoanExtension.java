@@ -1,30 +1,25 @@
 package lv.rgl.mla.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lv.rgl.mla.infrastructure.serializers.JsonDateSerializer;
-import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * Created by rihards.gladisevs on 06.12.2014..
  */
 
 @Entity
-@JsonIgnoreProperties({"extensionDate"})
 public class LoanExtension implements Serializable{
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime extensionDate;
+    private LocalDateTime extensionDate;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonBackReference
@@ -38,16 +33,12 @@ public class LoanExtension implements Serializable{
         this.id = id;
     }
 
-    public DateTime getExtensionDate() {
+    @JsonSerialize(using = JsonDateSerializer.class)
+    public LocalDateTime getExtensionDate() {
         return extensionDate;
     }
 
-    @JsonSerialize(using = JsonDateSerializer.class)
-    public Date getExtensionDatePrepared() {
-        return (extensionDate != null) ? extensionDate.toDate() : null;
-    }
-
-    public void setExtensionDate(DateTime extensionDate) {
+    public void setExtensionDate(LocalDateTime extensionDate) {
         this.extensionDate = extensionDate;
     }
 

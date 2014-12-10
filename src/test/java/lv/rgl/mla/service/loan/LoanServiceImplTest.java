@@ -9,7 +9,6 @@ import lv.rgl.mla.infrastructure.settings.LoanSettings;
 import lv.rgl.mla.service.loan.risk.LoanRiskService;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
-import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +17,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import static org.mockito.Mockito.*;
 
@@ -64,7 +64,7 @@ public class LoanServiceImplTest {
     @Test
     public void testPrepareLoanForExtension() throws Exception {
         Loan loan = mock(Loan.class);
-        when(loan.getEndDate()).thenReturn(DateTime.now());
+        when(loan.getEndDate()).thenReturn(LocalDateTime.now());
         when(loan.getInterest()).thenReturn(BigDecimal.TEN);
         when(loanRepository.save(loan)).thenReturn(loan);
         loanService.prepareLoanForExtension(loan);

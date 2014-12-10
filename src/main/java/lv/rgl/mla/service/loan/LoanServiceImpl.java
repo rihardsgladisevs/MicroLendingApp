@@ -9,10 +9,11 @@ import lv.rgl.mla.infrastructure.settings.LoanExtensionSettings;
 import lv.rgl.mla.infrastructure.settings.LoanSettings;
 import lv.rgl.mla.service.loan.risk.LoanRiskService;
 import org.joda.money.Money;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
 
 /**
  * Created by rihards.gladisevs on 06.12.2014..
@@ -38,7 +39,7 @@ public class LoanServiceImpl implements LoanService {
         Loan loan = new Loan();
         loan.setClient(client);
         loan.setAmount(amount);
-        DateTime applicationDate = DateTime.now();
+        LocalDateTime applicationDate = LocalDateTime.now();
         loan.setApplicationDate(applicationDate);
         loan.setEndDate(applicationDate.plusDays(term));
         loan.setInterest(loanSettings.getInterest());

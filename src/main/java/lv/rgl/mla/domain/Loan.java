@@ -9,12 +9,11 @@ import lv.rgl.mla.infrastructure.serializers.JsonDateSerializer;
 import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Type;
 import org.joda.money.Money;
-import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -22,7 +21,7 @@ import java.util.List;
  */
 
 @Entity
-@JsonIgnoreProperties({"amount", "applicationDate", "endDate"})
+@JsonIgnoreProperties({"amount"})
 public class Loan implements Serializable{
 
     @Id
@@ -33,11 +32,9 @@ public class Loan implements Serializable{
     @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentMoneyAmountAndCurrency")
     private Money amount;
 
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime applicationDate;
+    private LocalDateTime applicationDate;
 
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime endDate;
+    private LocalDateTime endDate;
 
     private BigDecimal interest;
 
@@ -75,29 +72,21 @@ public class Loan implements Serializable{
         this.amount = amount;
     }
 
-    public DateTime getApplicationDate() {
+    @JsonSerialize(using = JsonDateSerializer.class)
+    public LocalDateTime getApplicationDate() {
         return applicationDate;
     }
 
-    @JsonSerialize(using = JsonDateSerializer.class)
-    public Date getApplicationDatePrepared() {
-        return (applicationDate != null) ? applicationDate.toDate(): null;
-    }
-
-    public void setApplicationDate(DateTime applicationDate) {
+    public void setApplicationDate(LocalDateTime applicationDate) {
         this.applicationDate = applicationDate;
     }
 
-    public DateTime getEndDate() {
+    @JsonSerialize(using = JsonDateSerializer.class)
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
-    @JsonSerialize(using = JsonDateSerializer.class)
-    public Date getEndDatePrepared() {
-        return (endDate != null) ? endDate.toDate() : null;
-    }
-
-    public void setEndDate(DateTime endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 
