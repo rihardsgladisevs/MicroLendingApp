@@ -2,7 +2,7 @@
 Simple micro-lending application
 
 ## Requirements
-JRE 8
+JRE 8u20+ (date.time parse bug JDK-8041360 fixed)
 
 Maven 4
 
