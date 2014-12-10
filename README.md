@@ -7,10 +7,17 @@ JRE 8
 Maven 4
 
 ## Compile
-Using maven: `mvn clean install`
+Note: because of accepteance tests, tests need started application
+
+Using maven: `mvn clean install -DskipTests`
 
 ## Run
 As a jar: `java -jar mla-1.0-SNAPSHOT.jar`
+
+## Test
+Note: because of accepteance tests, tests need started application
+
+Using maven: `mvn test`
 
 ## Configuration
 You can change configuration in `src/main/resources/application.yml`
@@ -51,12 +58,12 @@ GET `/loans`
                 "extensions": [
                     {
                         "id": 1,
-                        "extensionDatePrepared": "09.12.2014 01:58:51"
+                        "extensionDate": "10.12.2014 23:49:41"
                     }
                 ],
                 "currency": "EUR",
                 "amountPrepared": 120,
-                "applicationDatePrepared": "09.12.2014 01:58:45",
-                "endDatePrepared": "05.01.2015 01:58:45"
+                "applicationDate": "10.12.2014 23:49:39",
+                "endDate": "06.01.2015 23:49:39"
             }
         ]
