@@ -2,8 +2,7 @@ package lv.rgl.mla.service.loan;
 
 import lv.rgl.mla.domain.Client;
 import lv.rgl.mla.domain.Loan;
-import lv.rgl.mla.domain.LoanRisk;
-import lv.rgl.mla.infrastructure.enums.RiskStatus;
+import lv.rgl.mla.domain.RiskStatus;
 import lv.rgl.mla.infrastructure.exceptions.LoanRiskException;
 import lv.rgl.mla.infrastructure.settings.LoanExtensionSettings;
 import lv.rgl.mla.infrastructure.settings.LoanSettings;
@@ -43,11 +42,11 @@ public class LoanServiceImpl implements LoanService {
         loan.setApplicationDate(applicationDate);
         loan.setEndDate(applicationDate.plusDays(term));
         loan.setInterest(loanSettings.getInterest());
-        LoanRisk loanRisk = loanRiskService.calculateLoanRisk(loan);
-        loan.setRiskStatus(loanRisk.getRiskStatus());
+        RiskStatus riskStatus = loanRiskService.calculateLoanRisk(loan);
+        loan.setRiskStatus(riskStatus);
         loan = loanRepository.save(loan);
-        if (loanRisk.getRiskStatus() != RiskStatus.OK) {
-            throw new LoanRiskException(loanRisk.getRiskStatus(), loanRisk.getMessage());
+        if (riskStatus != RiskStatus.OK) {
+            throw new LoanRiskException(riskStatus);
         }
         return loan;
     }

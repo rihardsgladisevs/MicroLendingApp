@@ -2,8 +2,7 @@ package lv.rgl.mla.service.loan.risk;
 
 import lv.rgl.mla.domain.Client;
 import lv.rgl.mla.domain.Loan;
-import lv.rgl.mla.domain.LoanRisk;
-import lv.rgl.mla.infrastructure.enums.RiskStatus;
+import lv.rgl.mla.domain.RiskStatus;
 import lv.rgl.mla.infrastructure.producers.DateTimeProducer;
 import lv.rgl.mla.infrastructure.settings.LoanRiskSettings;
 import org.joda.money.CurrencyUnit;
@@ -66,9 +65,9 @@ public class LoanRiskServiceImplTest {
         when(loan.getClient()).thenReturn(client);
         when(loan.getApplicationDate()).thenReturn(DATE_DAY);
 
-        LoanRisk loanRisk = loanRiskService.calculateLoanRisk(loan);
+        RiskStatus riskStatus = loanRiskService.calculateLoanRisk(loan);
 
-        assertEquals(RiskStatus.OK, loanRisk.getRiskStatus());
+        assertEquals(RiskStatus.OK, riskStatus);
     }
 
     @Test
@@ -84,9 +83,9 @@ public class LoanRiskServiceImplTest {
         when(loan.getClient()).thenReturn(client);
         when(loan.getApplicationDate()).thenReturn(DATE_NIGHT);
 
-        LoanRisk loanRisk = loanRiskService.calculateLoanRisk(loan);
+        RiskStatus riskStatus = loanRiskService.calculateLoanRisk(loan);
 
-        assertEquals(RiskStatus.APPLIED_AFTER_MIDNIGHT, loanRisk.getRiskStatus());
+        assertEquals(RiskStatus.APPLIED_AFTER_MIDNIGHT, riskStatus);
     }
 
     @Test
@@ -102,9 +101,9 @@ public class LoanRiskServiceImplTest {
         when(loan.getClient()).thenReturn(client);
         when(loan.getApplicationDate()).thenReturn(DATE_NIGHT);
 
-        LoanRisk loanRisk = loanRiskService.calculateLoanRisk(loan);
+        RiskStatus riskStatus = loanRiskService.calculateLoanRisk(loan);
 
-        assertEquals(RiskStatus.REACHED_MAX_APPLICATIONS_PER_DAY, loanRisk.getRiskStatus());
+        assertEquals(RiskStatus.REACHED_MAX_APPLICATIONS_PER_DAY, riskStatus);
     }
 
     @Test
@@ -120,8 +119,8 @@ public class LoanRiskServiceImplTest {
         when(loan.getClient()).thenReturn(client);
         when(loan.getApplicationDate()).thenReturn(DATE_NIGHT);
 
-        LoanRisk loanRisk = loanRiskService.calculateLoanRisk(loan);
+        RiskStatus riskStatus = loanRiskService.calculateLoanRisk(loan);
 
-        assertEquals(RiskStatus.OVER_MAX_AMOUNT, loanRisk.getRiskStatus());
+        assertEquals(RiskStatus.OVER_MAX_AMOUNT, riskStatus);
     }
 }

@@ -2,7 +2,7 @@ package lv.rgl.mla.service.client;
 
 import lv.rgl.mla.domain.Client;
 import lv.rgl.mla.domain.Loan;
-import lv.rgl.mla.infrastructure.enums.RiskStatus;
+import lv.rgl.mla.domain.RiskStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

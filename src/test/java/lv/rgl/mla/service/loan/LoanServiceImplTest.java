@@ -2,8 +2,7 @@ package lv.rgl.mla.service.loan;
 
 import lv.rgl.mla.domain.Client;
 import lv.rgl.mla.domain.Loan;
-import lv.rgl.mla.domain.LoanRisk;
-import lv.rgl.mla.infrastructure.enums.RiskStatus;
+import lv.rgl.mla.domain.RiskStatus;
 import lv.rgl.mla.infrastructure.settings.LoanExtensionSettings;
 import lv.rgl.mla.infrastructure.settings.LoanSettings;
 import lv.rgl.mla.service.loan.risk.LoanRiskService;
@@ -51,9 +50,7 @@ public class LoanServiceImplTest {
         Client client = mock(Client.class);
         Money money = Money.of(CurrencyUnit.EUR, BigDecimal.TEN);
         Loan loan = mock(Loan.class);
-        LoanRisk loanRisk = mock(LoanRisk.class);
-        when(loanRisk.getRiskStatus()).thenReturn(RiskStatus.OK);
-        when(loanRiskService.calculateLoanRisk(any(Loan.class))).thenReturn(loanRisk);
+        when(loanRiskService.calculateLoanRisk(any(Loan.class))).thenReturn(RiskStatus.OK);
         when(loanRepository.save(loan)).thenReturn(loan);
         loanService.applyForLoan(client, money, 20);
         verify(loanSettings, times(1)).getInterest();

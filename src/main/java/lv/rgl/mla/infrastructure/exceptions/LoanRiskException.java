@@ -1,6 +1,6 @@
 package lv.rgl.mla.infrastructure.exceptions;
 
-import lv.rgl.mla.infrastructure.enums.RiskStatus;
+import lv.rgl.mla.domain.RiskStatus;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class LoanRiskException extends Exception {
     private RiskStatus status;
 
-    public LoanRiskException(RiskStatus status, String message) {
-        super(message);
+    public LoanRiskException(RiskStatus status) {
+        super(status.getMessage());
         this.status = status;
     }
 
