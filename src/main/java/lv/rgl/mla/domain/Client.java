@@ -1,12 +1,10 @@
 package lv.rgl.mla.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -14,7 +12,7 @@ import java.util.List;
  */
 
 @Entity
-public class Client implements Serializable {
+public class Client {
 
     @Id
     @GeneratedValue

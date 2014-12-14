@@ -57,6 +57,7 @@ public class LoanServiceImpl implements LoanService {
         LoanExtension loanExtension = new LoanExtension();
         loanExtension.setExtensionDate(LocalDateTime.now());
         loanExtension.setLoan(loan);
+        loan.getExtensions().size(); // data operation to fix hibernate bidirectional mapping save problem
         loan.getExtensions().add(loanExtension);
         loan.setEndDate(loan.getEndDate().plusWeeks(loanExtensionSettings.getWeeksToIncrease()));
         loan.setInterest(loan.getInterest().multiply(loanExtensionSettings.getFactor()));

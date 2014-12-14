@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lv.rgl.mla.infrastructure.serializers.JsonDateSerializer;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -13,7 +12,7 @@ import java.time.LocalDateTime;
  */
 
 @Entity
-public class LoanExtension implements Serializable{
+public class LoanExtension {
 
     @Id
     @GeneratedValue

@@ -5,13 +5,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lv.rgl.mla.infrastructure.serializers.JsonDateSerializer;
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Columns;
+import org.hibernate.annotations.Type;
 import org.joda.money.Money;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.List;
 
 @Entity
 @JsonIgnoreProperties({"amount"})
-public class Loan implements Serializable{
+public class Loan {
 
     @Id
     @GeneratedValue
