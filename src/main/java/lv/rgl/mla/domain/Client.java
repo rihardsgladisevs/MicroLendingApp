@@ -1,8 +1,11 @@
 package lv.rgl.mla.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.List;
 
@@ -20,7 +23,8 @@ public class Client implements Serializable {
     @Column(nullable = false)
     private String ip;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "client", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
+    @Cascade(CascadeType.ALL)
     @JsonManagedReference
     private List<Loan> loans;
 

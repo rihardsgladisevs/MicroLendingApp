@@ -46,7 +46,7 @@ public class SuccessfulLoanExtend {
         .expect()
             .statusCode(statusCode)
         .when()
-            .post("/loans/{loanId}/extend");
+            .post("/loans/{loanId}/extensions");
     }
 
     @Then("^client has registered extension for given loan$")

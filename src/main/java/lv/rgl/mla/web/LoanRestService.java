@@ -5,7 +5,6 @@ import lv.rgl.mla.domain.Loan;
 import lv.rgl.mla.infrastructure.exceptions.LoanRiskException;
 import lv.rgl.mla.service.client.ClientService;
 import lv.rgl.mla.service.loan.LoanService;
-import lv.rgl.mla.service.loan.extension.LoanExtensionService;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +28,6 @@ public class LoanRestService {
     private LoanService loanService;
 
     @Autowired
-    private LoanExtensionService loanExtensionService;
-
-    @Autowired
     private ClientService clientService;
 
     @RequestMapping(method = RequestMethod.POST)
@@ -50,12 +46,11 @@ public class LoanRestService {
         return clientService.getLoansByClientIp(ip);
     }
 
-    @RequestMapping(value = "/{loanId}/extend", method = RequestMethod.POST)
+    @RequestMapping(value = "/{loanId}/extensions", method = RequestMethod.POST)
     public ResponseEntity<String> extendLoan(@PathVariable("loanId") Long loanId, HttpServletRequest request) {
         final String ip = request.getRemoteAddr();
         Loan loan = clientService.getClientLoan(ip, loanId);
-        loan = loanService.prepareLoanForExtension(loan);
-        loanExtensionService.makeExtension(loan);
+        loanService.addExtension(loan);
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 

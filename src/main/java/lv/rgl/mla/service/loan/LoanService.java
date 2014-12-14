@@ -11,5 +11,5 @@ import org.joda.money.Money;
 public interface LoanService {
     public Loan applyForLoan(Client client, Money amount, Integer term) throws LoanRiskException;
 
-    public Loan prepareLoanForExtension(Loan loan);
+    public Loan addExtension(Loan loan);
 }

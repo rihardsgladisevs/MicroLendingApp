@@ -5,7 +5,6 @@ import lv.rgl.mla.domain.Loan;
 import lv.rgl.mla.infrastructure.producers.DateTimeProducer;
 import lv.rgl.mla.service.client.ClientService;
 import lv.rgl.mla.service.loan.LoanService;
-import lv.rgl.mla.service.loan.extension.LoanExtensionService;
 import org.joda.money.Money;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,9 +43,6 @@ public class LoanRestServiceTest {
     @Mock
     private ClientService clientService;
 
-    @Mock
-    private LoanExtensionService loanExtensionService;
-
     @InjectMocks
     private LoanRestService loanRestService;
 
@@ -81,11 +77,10 @@ public class LoanRestServiceTest {
         Long loanId = 123L;
         Loan loan = mock(Loan.class);
         when(clientService.getClientLoan(USER_IP, loanId)).thenReturn(loan);
-        when(loanService.prepareLoanForExtension(loan)).thenReturn(loan);
+        when(loanService.addExtension(loan)).thenReturn(loan);
         ResponseEntity<String> result = loanRestService.extendLoan(loanId, request);
         verify(clientService, times(1)).getClientLoan(USER_IP, loanId);
-        verify(loanService, times(1)).prepareLoanForExtension(loan);
-        verify(loanExtensionService, times(1)).makeExtension(loan);
+        verify(loanService, times(1)).addExtension(loan);
         assertEquals(HttpStatus.OK, result.getStatusCode());
     }
 }

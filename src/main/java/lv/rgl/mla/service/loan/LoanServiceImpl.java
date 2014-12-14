@@ -2,6 +2,7 @@ package lv.rgl.mla.service.loan;
 
 import lv.rgl.mla.domain.Client;
 import lv.rgl.mla.domain.Loan;
+import lv.rgl.mla.domain.LoanExtension;
 import lv.rgl.mla.domain.RiskStatus;
 import lv.rgl.mla.infrastructure.exceptions.LoanRiskException;
 import lv.rgl.mla.infrastructure.settings.LoanExtensionSettings;
@@ -52,7 +53,11 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
-    public Loan prepareLoanForExtension(Loan loan) {
+    public Loan addExtension(Loan loan) {
+        LoanExtension loanExtension = new LoanExtension();
+        loanExtension.setExtensionDate(LocalDateTime.now());
+        loanExtension.setLoan(loan);
+        loan.getExtensions().add(loanExtension);
         loan.setEndDate(loan.getEndDate().plusWeeks(loanExtensionSettings.getWeeksToIncrease()));
         loan.setInterest(loan.getInterest().multiply(loanExtensionSettings.getFactor()));
         return loanRepository.save(loan);

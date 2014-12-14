@@ -21,7 +21,7 @@ public class LoanExtension implements Serializable{
 
     private LocalDateTime extensionDate;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     private Loan loan;
 

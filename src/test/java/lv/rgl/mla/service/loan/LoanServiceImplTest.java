@@ -59,12 +59,12 @@ public class LoanServiceImplTest {
     }
 
     @Test
-    public void testPrepareLoanForExtension() throws Exception {
+    public void testAddExtension() throws Exception {
         Loan loan = mock(Loan.class);
         when(loan.getEndDate()).thenReturn(LocalDateTime.now());
         when(loan.getInterest()).thenReturn(BigDecimal.TEN);
         when(loanRepository.save(loan)).thenReturn(loan);
-        loanService.prepareLoanForExtension(loan);
+        loanService.addExtension(loan);
         verify(loanExtensionSettings, times(1)).getWeeksToIncrease();
         verify(loanExtensionSettings, times(1)).getFactor();
         verify(loanRepository, times(1)).save(loan);
